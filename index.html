@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta http-equiv="CONTENT-TYPE" content="text/html; charset=UTF-8">
+  <link rel="stylesheet" href="styles/style.css"/>
+  <title>Hello, World!</title>
+</head>
+<body>
+  <h1>
+  </h1>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مستقبلك العشوائي 🔮</title>
+<style>
+    body {
+        background: linear-gradient(#0f0c29, #302b63, #24243e);
+        color: #fff;
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+        padding: 50px;
+        transition: background 0.5s;
+    }
+    h1 {
+        font-size: 2.5em;
+        margin-bottom: 30px;
+        text-shadow: 2px 2px #000;
+    }
+    #future {
+        font-size: 1.5em;
+        margin: 20px 0;
+        min-height: 60px;
+    }
+    button {
+        font-size: 1.5em;
+        padding: 15px 30px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        background: #ff5f6d;
+        color: #fff;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        transition: transform 0.2s, background 0.3s;
+    }
+    button:disabled {
+        background: #888;
+        cursor: not-allowed;
+    }
+    button:hover:not(:disabled) {
+        transform: scale(1.05);
+        background: #ffc371;
+        color: #000;
+    }
+</style>
+</head>
+<body>
+
+<h1>🔮 مستقبلك العشوائي</h1>
+<div id="future">اضغط الزر لاكتشاف مستقبلك!</div>
+<button id="revealBtn">اكشف مستقبلي</button>
+
+<script>
+const futures = [
+    "بعد 3 أيام راح تضيع سماعتك وتلقاها بالثلاجة 🥶",
+    "شخص نسيته راح يدزلك رسالة فجأة 📩",
+    "راح تضحك بدون سبب اليوم الساعة 9:17 😂",
+    "قرار صغير اليوم راح يغير شي كبير بعد شهر 🔄",
+    "اليوم شعور غريب راح يزورك، خليك مستعد 😱",
+    "حاجة غريبة بتحصل لك بالزمن اللي ما تتوقعه ⏳",
+    "صديق قديم راح يذكرك بشيء غريب 🤔"
+];
+
+const btn = document.getElementById("revealBtn");
+const futureDiv = document.getElementById("future");
+
+// عداد 24 ساعة
+let lastTime = localStorage.getItem('lastFuture') || 0;
+const now = new Date().getTime();
+const diff = now - lastTime;
+const oneDay = 24 * 60 * 60 * 1000;
+
+if(diff < oneDay){
+    btn.disabled = true;
+    const remaining = Math.ceil((oneDay - diff)/1000/60/60);
+    futureDiv.innerHTML = `انتظر ${remaining} ساعة قبل اكتشاف توقع جديد ⏳`;
+}
+
+btn.addEventListener("click", () => {
+    const rand = Math.floor(Math.random() * futures.length);
+    futureDiv.innerHTML = futures[rand];
+    lastTime = new Date().getTime();
+    localStorage.setItem('lastFuture', lastTime);
+    btn.disabled = true;
+    setTimeout(()=>{ btn.disabled = false; }, oneDay);
+});
+</script>
+
+</body>
+</html>
